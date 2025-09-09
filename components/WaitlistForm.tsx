@@ -16,7 +16,16 @@ export default function WaitlistForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    
+    const fd = new FormData(form);
+    const data = {
+        name: String(fd.get('name') || ''),
+        email: String(fd.get('email') || ''),
+        company: String(fd.get('company') || ''),
+        revenue: String(fd.get('revenue') || ''),
+        timing: String(fd.get('timing') || ''),
+    };
+
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
       alert('Please fill all fields with valid information.');
